@@ -2,6 +2,7 @@
 #include <map>
 #include <memory>
 #include <vector>
+#include <iostream>
 
 template <typename Identifier, typename Value>class Matrix
 {

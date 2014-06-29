@@ -92,6 +92,7 @@ void Matrix<char, int>::SetValue(const char & p_row, const char & p_column, cons
 	m_values[key] = p_int;
 }
 
+
 Matrix<char, int> Matrix<char, int>::operator*(const Matrix<char, int> & p_matrix) const
 {
 	Matrix<char, int> matrix;
@@ -100,23 +101,50 @@ Matrix<char, int> Matrix<char, int>::operator*(const Matrix<char, int> & p_matri
 
 	std::vector<char> _rows = p_matrix.GetRows(), _columns = p_matrix.GetColumns();
 
-	for (int i = 0; i < rows.size(); ++i)
+	/*for (int i = 0; i < rows.size(); ++i)
 	{
-		for (int j = 0; j < columns.size(); ++j)
-		{
-			int value = 0;
+	for (int j = 0; j < columns.size(); ++j)
+	{
+	int value = 0;
 
-			for (int k = 0; k < _rows.size(); ++k)
+	for (int k = 0; k < _rows.size(); ++k)
+	{
+	value += (m_values.find(Coord(rows[i], columns[k]))->second*p_matrix.GetValue(_rows[k], _columns[j]));
+	}
+
+	matrix.SetValue(rows[i], columns[j], value);
+	}
+	}*/
+
+	for(int i = 0; i < rows.size(); ++i)
+	{
+		for(int j = 0; j < _columns.size(); ++j)
+		{
+			matrix.m_values[Coord(rows[i], _columns[j])] = 0;
+
+			for(int k = 0; k < columns.size(); ++k)
 			{
-				value += (m_values.find(Coord(rows[i], columns[k]))->second*p_matrix.GetValue(_rows[k], _columns[j]));
+				matrix.m_values[Coord(rows[i], _columns[j])] += GetValue(rows[i], columns[k])*p_matrix.GetValue(_rows[k], _columns[j]);
 			}
 
-			matrix.SetValue(rows[i], columns[j], value);
 		}
 	}
 
+	/*for (int i = 0; i < rows.size(); ++i)
+	{
+		std::cout << "\n";
+
+		for (int j = 0; j < _columns.size(); j++)
+		{
+			std::cout << " " << matrix.GetValue(matrix.GetRows()[i], matrix.GetColumns()[j]);
+		}
+	}*/
+
 	return matrix;
 }
+
+/**/
+
 
 //Matrix<char, int> Matrix<char, int>::operator*=(const Matrix<char, int> & p_lhs, const Matrix<char, int> & p_rhs) const
 //{
