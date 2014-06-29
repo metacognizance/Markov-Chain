@@ -47,8 +47,10 @@ void Application::Initialize()
 	Matrix<char, int> matrix;
 
 	matrix.SetValue('a', 'a', 0);
+	matrix.SetValue('a', 'b', 1);
 
 	std::cout << matrix.GetValue('a', 'a') << "\n";
+	std::cout << matrix.GetValue('a', 'b') << "\n";
 }
 
 void Application::HandleEvents()

@@ -7,29 +7,15 @@ template <typename Identifier, typename Value>class Matrix
 {
 	struct Coord
 	{
-		inline Coord()
-		{
+		Coord();
 
-		}
+		Coord(const Identifier & p_row, const Identifier & p_column);
 
-		inline Coord(const Identifier & p_row, const Identifier & p_column) :
-			m_row(p_row),
-			m_column(p_column)
-		{
-
-		}
-
-		inline ~Coord()
-		{
-
-		}
+		~Coord();
 
 		Identifier m_row, m_column;
 
-		inline bool operator<(const Coord & p_coord) const
-		{
-			return true;
-		}
+		bool operator<(const Coord & p_coord) const;
 	};
 
 public:
