@@ -1,7 +1,7 @@
 #pragma once
 #include <map>
 #include <memory>
-#include <SFML\System\Vector2.hpp>
+#include <vector>
 
 template <typename Identifier, typename Value>class Matrix
 {
@@ -22,9 +22,18 @@ public:
 	Matrix();
 	~Matrix();
 
-	std::map<Coord, Value> m_values;
-
-	Value GetValue(const Identifier & p_row, const Identifier & p_column);
+	Value GetValue(const Identifier & p_row, const Identifier & p_column) const;
 
 	void SetValue(const Identifier & p_row, const Identifier & p_column, const Value & p_value);
+
+	Matrix operator*(const Matrix & p_matrix) const;
+	
+	//Matrix operator*=(const Matrix & p_lhs, const Matrix & p_rhs) const;
+
+	std::vector<Identifier> GetRows() const, GetColumns() const;
+	
+private:
+	std::map<Coord, Value> m_values;
+
+	bool find(const Identifier & p_identifier, const std::vector<Identifier> & p_list) const;
 };

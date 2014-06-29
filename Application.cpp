@@ -44,13 +44,42 @@ void Application::run()
 
 void Application::Initialize()
 {
-	Matrix<char, int> matrix;
+	Matrix<char, int> matrix, _matrix;
 
 	matrix.SetValue('a', 'a', 0);
 	matrix.SetValue('a', 'b', 1);
+	matrix.SetValue('a', 'c', 2);
 
-	std::cout << matrix.GetValue('a', 'a') << "\n";
-	std::cout << matrix.GetValue('a', 'b') << "\n";
+	matrix.SetValue('b', 'a', 3);
+	matrix.SetValue('b', 'b', 4);
+	matrix.SetValue('b', 'c', 5);
+
+	matrix.SetValue('c', 'a', 6);
+	matrix.SetValue('c', 'b', 7);
+	matrix.SetValue('c', 'c', 8);
+
+	_matrix.SetValue('a', 'a', 0);
+	_matrix.SetValue('a', 'b', 1);
+	_matrix.SetValue('a', 'c', 2);
+
+	_matrix.SetValue('b', 'a', 3);
+	_matrix.SetValue('b', 'b', 4);
+	_matrix.SetValue('b', 'c', 5);
+
+	_matrix.SetValue('c', 'a', 6);
+	_matrix.SetValue('c', 'b', 7);
+	_matrix.SetValue('c', 'c', 8);
+	
+	matrix = matrix * _matrix;
+
+	for (int j = 0; j < matrix.GetRows().size(); j++)
+	{
+		for (int i = 0; i < matrix.GetColumns().size(); i++)
+		{
+			std::cout << matrix.GetValue(matrix.GetRows()[j], matrix.GetColumns()[i]) << " ";
+		}
+		std::cout << "\n";
+	}
 }
 
 void Application::HandleEvents()
