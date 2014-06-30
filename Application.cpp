@@ -44,7 +44,7 @@ void Application::run()
 
 void Application::Initialize()
 {
-	Matrix<char, int> matrix, _matrix;
+	/*Matrix<char, int> matrix, _matrix;
 
 	matrix.SetValue('a', 'a', 10);
 	matrix.SetValue('a', 'b', 1);
@@ -62,7 +62,32 @@ void Application::Initialize()
 	_matrix.SetValue('c', 'b', 9);
 	_matrix.SetValue('c', 'c', 10);
 	
-	matrix = matrix * _matrix;
+	matrix = matrix * _matrix;*/
+
+	Chain<char, float> chain;
+
+	chain.m_probabilityMatrix.SetValue('a', 'a', 1.0f);
+	chain.m_probabilityMatrix.SetValue('a', 'b', 0.0f);
+	chain.m_probabilityMatrix.SetValue('a', 'c', 0.0f);
+
+	chain.m_probabilityMatrix.SetValue('b', 'a', 0.3f);
+	chain.m_probabilityMatrix.SetValue('b', 'b', 0.4f);
+	chain.m_probabilityMatrix.SetValue('b', 'c', 0.3f);
+
+	chain.m_probabilityMatrix.SetValue('c', 'a', 0.1f);
+	chain.m_probabilityMatrix.SetValue('c', 'b', 0.3f);
+	chain.m_probabilityMatrix.SetValue('c', 'c', 0.6f);
+
+	chain.m_state['a'] = 10;
+	chain.m_state['b'] = 70;
+	chain.m_state['c'] = 20;
+
+	chain.Increment(10);
+
+	for (auto it = chain.m_state.begin(); it != chain.m_state.end(); ++it)
+	{
+		std::cout << it->first << ": " << it->second << "\n";
+	}
 }
 
 void Application::HandleEvents()

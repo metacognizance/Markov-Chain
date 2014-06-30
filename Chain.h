@@ -1,40 +1,15 @@
 #pragma once
-#include <map>
-#include <memory>
-#include <vector>
-#include <iostream>
+#include "Matrix.h"
 
-template <typename Identifier, typename Value>class Matrix
+template <typename Identifier, typename Value>class Chain
 {
-	struct Coord
-	{
-		Coord();
-
-		Coord(const Identifier & p_row, const Identifier & p_column);
-
-		~Coord();
-
-		Identifier m_row, m_column;
-
-		bool operator<(const Coord & p_coord) const;
-	};
-
 public:
-	Matrix();
-	~Matrix();
+	Chain();
+	~Chain();
 
-	Value GetValue(const Identifier & p_row, const Identifier & p_column) const;
+	void Increment(const unsigned int & p_amount);
 
-	void SetValue(const Identifier & p_row, const Identifier & p_column, const Value & p_value);
+	std::map<Identifier, Value> m_state;
 
-	Matrix operator*(const Matrix & p_matrix) const;
-	
-	//Matrix operator*=(const Matrix & p_lhs, const Matrix & p_rhs) const;
-
-	std::vector<Identifier> GetRows() const, GetColumns() const;
-	
-private:
-	std::map<Coord, Value> m_values;
-
-	bool find(const Identifier & p_identifier, const std::vector<Identifier> & p_list) const;
+	Matrix<Identifier, Value> m_probabilityMatrix;
 };
