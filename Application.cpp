@@ -61,33 +61,26 @@ void Application::Initialize()
 	_matrix.SetValue('c', 'a', 8);
 	_matrix.SetValue('c', 'b', 9);
 	_matrix.SetValue('c', 'c', 10);
-	
+
 	matrix = matrix * _matrix;*/
 
-	Chain<char, float> chain;
+	m_chain.m_probabilityMatrix.SetValue('a', 'a', 1.0f);
+	m_chain.m_probabilityMatrix.SetValue('a', 'b', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('a', 'c', 0.0f);
 
-	chain.m_probabilityMatrix.SetValue('a', 'a', 1.0f);
-	chain.m_probabilityMatrix.SetValue('a', 'b', 0.0f);
-	chain.m_probabilityMatrix.SetValue('a', 'c', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('b', 'a', 0.3f);
+	m_chain.m_probabilityMatrix.SetValue('b', 'b', 0.4f);
+	m_chain.m_probabilityMatrix.SetValue('b', 'c', 0.3f);
 
-	chain.m_probabilityMatrix.SetValue('b', 'a', 0.3f);
-	chain.m_probabilityMatrix.SetValue('b', 'b', 0.4f);
-	chain.m_probabilityMatrix.SetValue('b', 'c', 0.3f);
+	m_chain.m_probabilityMatrix.SetValue('c', 'a', 0.1f);
+	m_chain.m_probabilityMatrix.SetValue('c', 'b', 0.3f);
+	m_chain.m_probabilityMatrix.SetValue('c', 'c', 0.6f);
 
-	chain.m_probabilityMatrix.SetValue('c', 'a', 0.1f);
-	chain.m_probabilityMatrix.SetValue('c', 'b', 0.3f);
-	chain.m_probabilityMatrix.SetValue('c', 'c', 0.6f);
+	m_chain.m_state['a'] = 10;
+	m_chain.m_state['b'] = 70;
+	m_chain.m_state['c'] = 20;
 
-	chain.m_state['a'] = 10;
-	chain.m_state['b'] = 70;
-	chain.m_state['c'] = 20;
-
-	chain.Increment(10);
-
-	for (auto it = chain.m_state.begin(); it != chain.m_state.end(); ++it)
-	{
-		std::cout << it->first << ": " << it->second << "\n";
-	}
+	m_chain.SetPosition();
 }
 
 void Application::HandleEvents()
@@ -107,6 +100,11 @@ void Application::HandleEvents()
 			{
 				m_running = false;
 			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				m_chain.Increment(1);
+			}
 		}
 	}
 }
@@ -119,6 +117,8 @@ void Application::Update(sf::Time & p_deltaTime)
 void Application::Render()
 {
 	m_window.clear(sf::Color(46, 46, 46));
+
+	m_window.draw(m_chain);
 
 	m_window.display();
 }
