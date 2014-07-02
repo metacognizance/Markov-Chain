@@ -8,6 +8,7 @@
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\Graphics\Sprite.hpp>
 #include <SFML\Graphics\Font.hpp>
+#include <SFML\Graphics\Text.hpp>
 #include "GeneralMath.h"
 
 template <typename Identifier, typename Value>class Chain : public sf::Drawable
@@ -29,7 +30,9 @@ private:
 
 	std::map<Identifier, sf::Vector2<float>> m_nodes;
 
-	void GetHighest();
+	void GetHighest(), GetHighestIdentifier();
+
+	Identifier m_highIdentifier;
 
 	Value m_high;
 
