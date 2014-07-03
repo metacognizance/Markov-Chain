@@ -173,6 +173,19 @@ void Chain<char, float>::Increment(const unsigned int & p_amount)
 
 void Chain<char, float>::draw(sf::RenderTarget & p_target, sf::RenderStates p_states) const
 {
+	bool focus = false;
+	char focused;
+
+	for (auto it = m_nodes.begin(); it != m_nodes.end(); ++it)
+	{
+		if (math::distance(sf::Vector2<float>(sf::Mouse::getPosition(*ptr_window).x, sf::Mouse::getPosition(*ptr_window).y), it->second) <= 10)
+		{
+			focus = true;
+			focused = it->first;
+			break;
+		}
+	}
+
 	sf::VertexArray lines;
 	lines.setPrimitiveType(sf::PrimitiveType::Lines);
 
@@ -212,6 +225,11 @@ void Chain<char, float>::draw(sf::RenderTarget & p_target, sf::RenderStates p_st
 	{
 		char from = m_probabilityMatrix.GetCoord(i).m_row;
 		char to = m_probabilityMatrix.GetCoord(i).m_column;
+
+		if (focus && from != focused)
+		{
+			continue;
+		}
 
 		lines.append(sf::Vertex(m_nodes.find(from)->second));
 		lines.append(sf::Vertex(m_nodes.find(to)->second));

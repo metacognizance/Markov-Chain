@@ -24,7 +24,7 @@
     <ClInclude Include="Matrix.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneralMath.h">
+    <ClInclude Include="..\Dependencies\GeneralMath.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,8 +38,13 @@
     <ClCompile Include="Matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneralMath.cpp">
+    <ClCompile Include="..\Dependencies\GeneralMath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Dependencies\GeneralMath.inl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

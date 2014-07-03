@@ -66,16 +66,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Dependencies\GeneralMath.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Chain.cpp" />
-    <ClCompile Include="GeneralMath.cpp" />
     <ClCompile Include="Matrix.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Dependencies\GeneralMath.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Chain.h" />
-    <ClInclude Include="GeneralMath.h" />
     <ClInclude Include="Matrix.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Dependencies\GeneralMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

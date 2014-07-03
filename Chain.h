@@ -9,6 +9,8 @@
 #include <SFML\Graphics\Sprite.hpp>
 #include <SFML\Graphics\Font.hpp>
 #include <SFML\Graphics\Text.hpp>
+#include <SFML\Window\Mouse.hpp>
+#include <SFML\Graphics\RenderWindow.hpp>
 #include "GeneralMath.h"
 
 template <typename Identifier, typename Value>class Chain : public sf::Drawable
@@ -24,6 +26,8 @@ public:
 	Matrix<Identifier, Value> m_probabilityMatrix;
 
 	void SetPosition();
+
+	sf::RenderWindow* ptr_window;
 
 private:
 	void draw(sf::RenderTarget & p_target, sf::RenderStates p_states) const;
