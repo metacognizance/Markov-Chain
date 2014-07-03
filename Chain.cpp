@@ -190,7 +190,7 @@ void Chain<char, float>::draw(sf::RenderTarget & p_target, sf::RenderStates p_st
 
 		text.setPosition(sf::Vector2<float>(it->second.x + 8, it->second.y + 8));
 		text.setString(it->first);
-		
+
 		p_target.draw(text);
 
 		char* str = new char[30];
@@ -222,13 +222,21 @@ void Chain<char, float>::draw(sf::RenderTarget & p_target, sf::RenderStates p_st
 		std::sprintf(first, "%.4g", (m_probabilityMatrix.GetValue(from, to)));
 		std::sprintf(second, "%.4g", (m_probabilityMatrix.GetValue(to, from)));
 
-		std::string string = (std::string)first + ":" + (std::string)second;
+		std::string string;
+		string.push_back(from);
+		string.push_back(':');
+		string.push_back(to);
+
+		std::string _string;
+		_string.push_back(to);
+		_string.push_back(':');
+		_string.push_back(from);
 
 		bool found = false;
 
 		for (int j = 0; j < combinations.size(); ++j)
 		{
-			if (combinations[j] == (std::string((std::string)second + ":" + (std::string)first)))
+			if (combinations[j] == _string)
 			{
 				found = true;
 				break;
@@ -237,7 +245,8 @@ void Chain<char, float>::draw(sf::RenderTarget & p_target, sf::RenderStates p_st
 
 		if (!found)
 		{
-			text.setString(string);
+			std::string probability = (std::string)first + ':' + (std::string)second;
+			text.setString(probability);
 			text.setPosition(sf::Vector2<float>((m_nodes.find(from)->second.x < m_nodes.find(to)->second.x ? m_nodes.find(from)->second.x:m_nodes.find(to)->second.x) + (((m_nodes.find(from)->second.x > m_nodes.find(to)->second.x) ? (m_nodes.find(from)->second.x - m_nodes.find(to)->second.x):(m_nodes.find(to)->second.x - m_nodes.find(from)->second.x))/2) - 16, (m_nodes.find(from)->second.y < m_nodes.find(to)->second.y ? m_nodes.find(from)->second.y:m_nodes.find(to)->second.y) + (((m_nodes.find(from)->second.y > m_nodes.find(to)->second.y) ? (m_nodes.find(from)->second.y - m_nodes.find(to)->second.y):(m_nodes.find(to)->second.y - m_nodes.find(from)->second.y))/2) - 16));
 
 			p_target.draw(text);
