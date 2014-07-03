@@ -245,7 +245,17 @@ void Chain<char, float>::draw(sf::RenderTarget & p_target, sf::RenderStates p_st
 
 		if (!found)
 		{
-			std::string probability = (std::string)first + ':' + (std::string)second;
+			std::string probability;// = from + (std::string)first + ':' + to + (std::string)second;
+			probability.push_back(from);
+			probability.push_back('>');
+			probability.push_back(to);
+			probability += (std::string)first;
+			probability.push_back('|');
+			probability.push_back(to);
+			probability.push_back('>');
+			probability.push_back(from);
+			probability += (std::string)second;
+
 			text.setString(probability);
 			text.setPosition(sf::Vector2<float>((m_nodes.find(from)->second.x < m_nodes.find(to)->second.x ? m_nodes.find(from)->second.x:m_nodes.find(to)->second.x) + (((m_nodes.find(from)->second.x > m_nodes.find(to)->second.x) ? (m_nodes.find(from)->second.x - m_nodes.find(to)->second.x):(m_nodes.find(to)->second.x - m_nodes.find(from)->second.x))/2) - 16, (m_nodes.find(from)->second.y < m_nodes.find(to)->second.y ? m_nodes.find(from)->second.y:m_nodes.find(to)->second.y) + (((m_nodes.find(from)->second.y > m_nodes.find(to)->second.y) ? (m_nodes.find(from)->second.y - m_nodes.find(to)->second.y):(m_nodes.find(to)->second.y - m_nodes.find(from)->second.y))/2) - 16));
 
