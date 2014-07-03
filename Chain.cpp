@@ -190,13 +190,7 @@ void Chain<char, float>::draw(sf::RenderTarget & p_target, sf::RenderStates p_st
 
 		text.setPosition(sf::Vector2<float>(it->second.x + 8, it->second.y + 8));
 		text.setString(it->first);
-
-		for (auto iter = m_nodes.begin(); iter != m_nodes.end(); ++iter)
-		{
-			lines.append(sf::Vertex(it->second));
-			lines.append(sf::Vertex(iter->second));
-		}
-
+		
 		p_target.draw(text);
 
 		char* str = new char[30];
@@ -209,6 +203,49 @@ void Chain<char, float>::draw(sf::RenderTarget & p_target, sf::RenderStates p_st
 		p_target.draw(text);
 
 		delete str;
+	}
+
+	std::vector<char> probabilityMatrixRows = m_probabilityMatrix.GetRows(), probabilityMatrixColumns = m_probabilityMatrix.GetColumns();
+	std::vector<std::string> combinations;
+
+	for (int i = 0; i < probabilityMatrixRows.size()*probabilityMatrixColumns.size(); ++i)
+	{
+		char from = m_probabilityMatrix.GetCoord(i).m_row;
+		char to = m_probabilityMatrix.GetCoord(i).m_column;
+
+		lines.append(sf::Vertex(m_nodes.find(from)->second));
+		lines.append(sf::Vertex(m_nodes.find(to)->second));
+
+		char* first = new char[30];
+		char* second = new char[30];
+
+		std::sprintf(first, "%.4g", (m_probabilityMatrix.GetValue(from, to)));
+		std::sprintf(second, "%.4g", (m_probabilityMatrix.GetValue(to, from)));
+
+		std::string string = (std::string)first + ":" + (std::string)second;
+
+		bool found = false;
+
+		for (int j = 0; j < combinations.size(); ++j)
+		{
+			if (combinations[j] == (std::string((std::string)second + ":" + (std::string)first)))
+			{
+				found = true;
+				break;
+			}
+		}
+
+		if (!found)
+		{
+			text.setString(string);
+			text.setPosition(sf::Vector2<float>((m_nodes.find(from)->second.x < m_nodes.find(to)->second.x ? m_nodes.find(from)->second.x:m_nodes.find(to)->second.x) + (((m_nodes.find(from)->second.x > m_nodes.find(to)->second.x) ? (m_nodes.find(from)->second.x - m_nodes.find(to)->second.x):(m_nodes.find(to)->second.x - m_nodes.find(from)->second.x))/2) - 16, (m_nodes.find(from)->second.y < m_nodes.find(to)->second.y ? m_nodes.find(from)->second.y:m_nodes.find(to)->second.y) + (((m_nodes.find(from)->second.y > m_nodes.find(to)->second.y) ? (m_nodes.find(from)->second.y - m_nodes.find(to)->second.y):(m_nodes.find(to)->second.y - m_nodes.find(from)->second.y))/2) - 16));
+
+			p_target.draw(text);
+
+			combinations.push_back(string);
+		}
+
+		delete first, second;
 	}
 
 	p_target.draw(lines);

@@ -160,6 +160,17 @@ void Matrix<char, float>::SetValue(const char & p_row, const char & p_column, co
 	m_values[key] = p_int;
 }
 
+Matrix<char, float>::Coord Matrix<char, float>::GetCoord(const int & p_index) const
+{
+	unsigned int i = 0;
+	for (auto it = m_values.begin(); it != m_values.end(); ++it, ++i)
+	{
+		if (i == p_index)
+		{
+			return Matrix<char, float>::Coord(it->first.m_row, it->first.m_column);
+		}
+	}
+}
 
 Matrix<char, float> Matrix<char, float>::operator*(const Matrix<char, float> & p_matrix) const
 {

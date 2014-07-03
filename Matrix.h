@@ -27,6 +27,8 @@ public:
 
 	void SetValue(const Identifier & p_row, const Identifier & p_column, const Value & p_value);
 
+	Coord GetCoord(const int & p_index) const;
+
 	void Erase(const Identifier & p_row, const Identifier & p_column);
 
 	Matrix operator*(const Matrix & p_matrix) const;
