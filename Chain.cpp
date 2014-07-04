@@ -231,60 +231,63 @@ void Chain<char, float>::draw(sf::RenderTarget & p_target, sf::RenderStates p_st
 			continue;
 		}
 
-		lines.append(sf::Vertex(m_nodes.find(from)->second));
-		lines.append(sf::Vertex(m_nodes.find(to)->second));
-
-		char* first = new char[30];
-		char* second = new char[30];
-
-		std::sprintf(first, "%.4g", (m_probabilityMatrix.GetValue(from, to)));
-		std::sprintf(second, "%.4g", (m_probabilityMatrix.GetValue(to, from)));
-
-		std::string string;
-		string.push_back(from);
-		string.push_back(':');
-		string.push_back(to);
-
-		std::string _string;
-		_string.push_back(to);
-		_string.push_back(':');
-		_string.push_back(from);
-
-		bool found = false;
-
-		for (int j = 0; j < combinations.size(); ++j)
+		if (m_probabilityMatrix.GetValue(from, to) != 0 || m_probabilityMatrix.GetValue(to, from) != 0)
 		{
-			if (combinations[j] == _string)
+			lines.append(sf::Vertex(m_nodes.find(from)->second));
+			lines.append(sf::Vertex(m_nodes.find(to)->second));
+
+			char* first = new char[30];
+			char* second = new char[30];
+
+			std::sprintf(first, "%.4g", (m_probabilityMatrix.GetValue(from, to)));
+			std::sprintf(second, "%.4g", (m_probabilityMatrix.GetValue(to, from)));
+
+			std::string string;
+			string.push_back(from);
+			string.push_back(':');
+			string.push_back(to);
+
+			std::string _string;
+			_string.push_back(to);
+			_string.push_back(':');
+			_string.push_back(from);
+
+			bool found = false;
+
+			for (int j = 0; j < combinations.size(); ++j)
 			{
-				found = true;
-				break;
+				if (combinations[j] == _string)
+				{
+					found = true;
+					break;
+				}
 			}
+
+			if (!found)
+			{
+				std::string probability;// = from + (std::string)first + ':' + to + (std::string)second;
+				probability.push_back(from);
+				probability.push_back('>');
+				probability.push_back(to);
+				probability.push_back(':');
+				probability += (std::string)first;
+				probability.push_back('|');
+				probability.push_back(to);
+				probability.push_back('>');
+				probability.push_back(from);
+				probability.push_back(':');
+				probability += (std::string)second;
+
+				text.setString(probability);
+				text.setPosition(sf::Vector2<float>((m_nodes.find(from)->second.x < m_nodes.find(to)->second.x ? m_nodes.find(from)->second.x:m_nodes.find(to)->second.x) + (((m_nodes.find(from)->second.x > m_nodes.find(to)->second.x) ? (m_nodes.find(from)->second.x - m_nodes.find(to)->second.x):(m_nodes.find(to)->second.x - m_nodes.find(from)->second.x))/2) - 16, (m_nodes.find(from)->second.y < m_nodes.find(to)->second.y ? m_nodes.find(from)->second.y:m_nodes.find(to)->second.y) + (((m_nodes.find(from)->second.y > m_nodes.find(to)->second.y) ? (m_nodes.find(from)->second.y - m_nodes.find(to)->second.y):(m_nodes.find(to)->second.y - m_nodes.find(from)->second.y))/2) - 16));
+
+				p_target.draw(text);
+
+				combinations.push_back(string);
+			}
+
+			delete first, second;
 		}
-
-		if (!found)
-		{
-			std::string probability;// = from + (std::string)first + ':' + to + (std::string)second;
-			probability.push_back(from);
-			probability.push_back('>');
-			probability.push_back(to);
-			probability.push_back(':');
-			probability += (std::string)first;
-			probability.push_back('|');
-			probability.push_back(to);
-			probability.push_back('>');
-			probability.push_back(from);
-			probability.push_back(':');
-			probability += (std::string)second;
-
-			text.setString(probability);
-			text.setPosition(sf::Vector2<float>((m_nodes.find(from)->second.x < m_nodes.find(to)->second.x ? m_nodes.find(from)->second.x:m_nodes.find(to)->second.x) + (((m_nodes.find(from)->second.x > m_nodes.find(to)->second.x) ? (m_nodes.find(from)->second.x - m_nodes.find(to)->second.x):(m_nodes.find(to)->second.x - m_nodes.find(from)->second.x))/2) - 16, (m_nodes.find(from)->second.y < m_nodes.find(to)->second.y ? m_nodes.find(from)->second.y:m_nodes.find(to)->second.y) + (((m_nodes.find(from)->second.y > m_nodes.find(to)->second.y) ? (m_nodes.find(from)->second.y - m_nodes.find(to)->second.y):(m_nodes.find(to)->second.y - m_nodes.find(from)->second.y))/2) - 16));
-
-			p_target.draw(text);
-
-			combinations.push_back(string);
-		}
-
-		delete first, second;
 	}
 
 	p_target.draw(lines);
