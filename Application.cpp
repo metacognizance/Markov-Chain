@@ -66,30 +66,54 @@ void Application::Initialize()
 
 	m_chain.ptr_window = &m_window;
 
-	m_chain.m_probabilityMatrix.SetValue('a', 'a', 0.9f);
-	m_chain.m_probabilityMatrix.SetValue('a', 'b', 0.05f);
-	m_chain.m_probabilityMatrix.SetValue('a', 'c', 0.025f);
-	m_chain.m_probabilityMatrix.SetValue('a', 'd', 0.025f);
+	m_chain.m_probabilityMatrix.SetValue('f', 'f', 0.9f);
+	m_chain.m_probabilityMatrix.SetValue('f', '1', 0.1f);
+	m_chain.m_probabilityMatrix.SetValue('f', '2', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('f', '3', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('f', 'p', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('f', 's', 0.0f);
 
-	m_chain.m_probabilityMatrix.SetValue('b', 'a', 0.1f);
-	m_chain.m_probabilityMatrix.SetValue('b', 'b', 0.9f);
-	m_chain.m_probabilityMatrix.SetValue('b', 'c', 0.0f);
-	m_chain.m_probabilityMatrix.SetValue('b', 'd', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('1', 'f', 0.5f);
+	m_chain.m_probabilityMatrix.SetValue('1', '1', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('1', '2', 0.5f);
+	m_chain.m_probabilityMatrix.SetValue('1', '3', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('1', 'p', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('1', 's', 0.0f);
 
-	m_chain.m_probabilityMatrix.SetValue('c', 'a', 0.0f);
-	m_chain.m_probabilityMatrix.SetValue('c', 'b', 0.7f);
-	m_chain.m_probabilityMatrix.SetValue('c', 'c', 0.2f);
-	m_chain.m_probabilityMatrix.SetValue('c', 'd', 0.1f);
+	m_chain.m_probabilityMatrix.SetValue('2', 'f', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('2', '1', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('2', '2', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('2', '3', 0.8f);
+	m_chain.m_probabilityMatrix.SetValue('2', 'p', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('2', 's', 0.2f);
 
-	m_chain.m_probabilityMatrix.SetValue('d', 'a', 0.1f);
-	m_chain.m_probabilityMatrix.SetValue('d', 'b', 0.3f);
-	m_chain.m_probabilityMatrix.SetValue('d', 'c', 0.3f);
-	m_chain.m_probabilityMatrix.SetValue('d', 'd', 0.3f);
+	m_chain.m_probabilityMatrix.SetValue('3', 'f', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('3', '1', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('3', '2', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('3', '3', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('3', 'p', 0.4f);
+	m_chain.m_probabilityMatrix.SetValue('3', 's', 0.6f);
 
-	m_chain.m_state['a'] = 10;
-	m_chain.m_state['b'] = 50;
-	m_chain.m_state['c'] = 20;
-	m_chain.m_state['d'] = 20;
+	m_chain.m_probabilityMatrix.SetValue('p', 'f', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('p', '1', 0.2f);
+	m_chain.m_probabilityMatrix.SetValue('p', '2', 0.4f);
+	m_chain.m_probabilityMatrix.SetValue('p', '3', 0.4f);
+	m_chain.m_probabilityMatrix.SetValue('p', 'p', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('p', 's', 0.0f);
+
+	m_chain.m_probabilityMatrix.SetValue('s', 'f', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('s', '1', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('s', '2', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('s', '3', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('s', 'p', 0.0f);
+	m_chain.m_probabilityMatrix.SetValue('s', 's', 1.0f);
+
+	m_chain.m_state['f'] = 100;
+	m_chain.m_state['1'] = 0;
+	m_chain.m_state['2'] = 0;
+	m_chain.m_state['3'] = 0;
+	m_chain.m_state['p'] = 0;
+	m_chain.m_state['s'] = 0;
 
 	m_chain.SetPosition();
 }

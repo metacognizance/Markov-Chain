@@ -267,11 +267,13 @@ void Chain<char, float>::draw(sf::RenderTarget & p_target, sf::RenderStates p_st
 			probability.push_back(from);
 			probability.push_back('>');
 			probability.push_back(to);
+			probability.push_back(':');
 			probability += (std::string)first;
 			probability.push_back('|');
 			probability.push_back(to);
 			probability.push_back('>');
 			probability.push_back(from);
+			probability.push_back(':');
 			probability += (std::string)second;
 
 			text.setString(probability);
